@@ -473,6 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf61be09bff57d9448fa8082e1749425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreadcrumbAi.Ai
+  ignoreMovement: 0
   _CanFollowPlayer: 1
   _CanFollowBreadcrumbs: 0
   _CanFollowAi: 0
@@ -628,13 +629,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758854112}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 2, y: 0, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 180}
 --- !u!54 &758854118
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -902,6 +903,8 @@ GameObject:
   - component: {fileID: 2030618479}
   - component: {fileID: 2030618484}
   - component: {fileID: 2030618483}
+  - component: {fileID: 2030618486}
+  - component: {fileID: 2030618485}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1045,6 +1048,39 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2030618485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030618478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a402e752657f6a2658bffac07d9f9159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MetroUndergroundEcho.Gameplay.Player
+  moveSpeed: 5
+  jumpForce: 5
+  mouseSensitivity: 2
+  stepVolume: 6
+  landingVolume: 10
+  cameraTransform: {fileID: 0}
+  player: {fileID: 0}
+--- !u!114 &2030618486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030618478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4182d91a706fb4f39fc407939963a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAudio
+  footstepClips: []
+  landingClips: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
