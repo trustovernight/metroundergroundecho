@@ -57,24 +57,11 @@ public class PlayerControl : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.OnSpacePressedSpace += ReactToSpace;
-        InputManager.OnSpacePressedLeftShift += ReactToLeftShift;
-        InputManager.OnSpacePressedLeftControl += ReactToLeftControl;
-
-        InputManager.OnLeftControlReleased += ReactToLeftShiftReleased;
-        InputManager.OnLeftShiftReleased += ReactToLeftControlReleased;
     }
 
     private void OnDisable()
     {
-        InputManager.OnSpacePressedSpace -= ReactToSpace;
-        InputManager.OnSpacePressedLeftShift -= ReactToLeftShift;
-        InputManager.OnSpacePressedLeftControl -= ReactToLeftControl;
-
-        InputManager.OnLeftControlReleased -= ReactToLeftShiftReleased;
-        InputManager.OnLeftShiftReleased -= ReactToLeftControlReleased;
     }
-
     void ReactToSpace()
     {
         if(isGrounded){
