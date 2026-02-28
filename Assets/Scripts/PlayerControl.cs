@@ -12,11 +12,15 @@ public class PlayerControl : MonoBehaviour
     private Rigidbody rb;
     private float xRotation = 0f;
     private bool isGrounded;
+    private float defaultMoveSpeed;
+    private Vector3 defaultScale;
 
     void Start()
     {
         rb = player.GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+        defaultMoveSpeed = moveSpeed;
+        defaultScale = player.transform.localScale;
     }
 
     void Update()
@@ -29,11 +33,6 @@ public class PlayerControl : MonoBehaviour
 
         cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
     }
 
     void FixedUpdate()
@@ -58,12 +57,22 @@ public class PlayerControl : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.OnSpacePressed += ReactToSpace;
+        InputManager.OnSpacePressedSpace += ReactToSpace;
+        InputManager.OnSpacePressedLeftShift += ReactToLeftShift;
+        InputManager.OnSpacePressedLeftControl += ReactToLeftControl;
+
+        InputManager.OnLeftControlReleased += ReactToLeftShiftReleased;
+        InputManager.OnLeftShiftReleased += ReactToLeftControlReleased;
     }
 
     private void OnDisable()
     {
-        InputManager.OnSpacePressed -= ReactToSpace;
+        InputManager.OnSpacePressedSpace -= ReactToSpace;
+        InputManager.OnSpacePressedLeftShift -= ReactToLeftShift;
+        InputManager.OnSpacePressedLeftControl -= ReactToLeftControl;
+
+        InputManager.OnLeftControlReleased -= ReactToLeftShiftReleased;
+        InputManager.OnLeftShiftReleased -= ReactToLeftControlReleased;
     }
 
     void ReactToSpace()
@@ -71,6 +80,42 @@ public class PlayerControl : MonoBehaviour
         if(isGrounded){
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+    }
+
+    void ReactToLeftShift()
+    {
+        if(isGrounded){
+            Vector3 scale = defaultScale;
+            scale.y /= 2f;
+            player.transform.localScale = scale;
+
+            moveSpeed = defaultMoveSpeed / 2f;
+        }
+    }
+
+    void ReactToLeftControl()
+    {
+        if(isGrounded){
+            Vector3 scale = defaultScale;
+            scale.y /= 3f;
+            player.transform.localScale = scale;
+
+            moveSpeed = defaultMoveSpeed / 3f;
+        }
+    }
+
+    void ReactToLeftShiftReleased() 
+    {
+        player.transform.localScale = defaultScale;
+
+        moveSpeed = defaultMoveSpeed;
+    }
+
+    void ReactToLeftControlReleased() 
+    {
+        player.transform.localScale = defaultScale;
+
+        moveSpeed = defaultMoveSpeed;
     }
 }
         
