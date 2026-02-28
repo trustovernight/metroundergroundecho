@@ -29,7 +29,7 @@ namespace MetroUndergroundEcho.Gameplay
         public Transform cameraTransform;
         public GameObject player;
 
-        private SliderBar playerState;
+        private SliderBar playerStats;
         
         private void Start()
         {
