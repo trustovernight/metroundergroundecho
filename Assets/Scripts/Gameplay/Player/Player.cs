@@ -7,6 +7,8 @@ namespace MetroUndergroundEcho.Gameplay
     [RequireComponent(typeof(PlayerAudio))]
     public class Player : MonoBehaviour, ISoundProducer
     {
+        public bool IsRunning {get; private set;} = false;
+
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float jumpForce = 5f;
         [SerializeField] private float mouseSensitivity = 2f;
@@ -84,22 +86,26 @@ namespace MetroUndergroundEcho.Gameplay
 
         private void OnEnable() 
         {
-            InputManager.OnSpacePressedSpace += ReactToSpace;
-            InputManager.OnSpacePressedLeftShift += ReactToLeftShift;
-            InputManager.OnSpacePressedLeftControl += ReactToLeftControl;
+            InputManager.OnPressedSpace += ReactToSpace;
+            InputManager.OnPressedLeftShift += ReactToLeftShift;
+            InputManager.OnPressedLeftControl += ReactToLeftControl;
+            InputManager.OnPressedZ += ReactToZ;
 
             InputManager.OnLeftShiftReleased += ReactToLeftShiftReleased;
             InputManager.OnLeftControlReleased += ReactToLeftControlReleased;
+            InputManager.OnZReleased += ReactToZReleased;
         }
             
         private void OnDisable() 
         {
-            InputManager.OnSpacePressedSpace -= ReactToSpace;
-            InputManager.OnSpacePressedLeftShift -= ReactToLeftShift;
-            InputManager.OnSpacePressedLeftControl -= ReactToLeftControl; 
+            InputManager.OnPressedSpace -= ReactToSpace;
+            InputManager.OnPressedLeftShift -= ReactToLeftShift;
+            InputManager.OnPressedLeftControl -= ReactToLeftControl; 
+            InputManager.OnPressedZ -= ReactToZ;
 
             InputManager.OnLeftShiftReleased -= ReactToLeftShiftReleased;
             InputManager.OnLeftControlReleased -= ReactToLeftControlReleased;
+            InputManager.OnZReleased -= ReactToZReleased;
         }
         
         private void ReactToSpace()
@@ -112,6 +118,15 @@ namespace MetroUndergroundEcho.Gameplay
         private void ReactToLeftShift()
         {
             if(isGrounded){
+                moveSpeed = defaultMoveSpeed * 2;
+                canProduceSound = true;
+                IsRunning = true;
+            }
+        }
+
+        private void ReactToLeftControl()
+        {
+            if(isGrounded){
                 Vector3 scale = defaultScale;
                 scale.y /= 2f;
                 player.transform.localScale = scale;
@@ -121,7 +136,21 @@ namespace MetroUndergroundEcho.Gameplay
             }
         }
 
-        private void ReactToLeftControl()
+        private void ReactToLeftShiftReleased() 
+        {
+            moveSpeed = defaultMoveSpeed;
+        }
+
+        private void ReactToLeftControlReleased() 
+        {
+            player.transform.localScale = defaultScale;
+
+            moveSpeed = defaultMoveSpeed;
+            
+            canProduceSound = true;
+        }
+
+        private void ReactToZ()
         {
             if(isGrounded){
                 Vector3 scale = defaultScale;
@@ -133,21 +162,12 @@ namespace MetroUndergroundEcho.Gameplay
             }
         }
 
-        private void ReactToLeftShiftReleased() 
+        private void ReactToZReleased() 
         {
             player.transform.localScale = defaultScale;
 
             moveSpeed = defaultMoveSpeed;
 
-            canProduceSound = true;
-        }
-
-        private void ReactToLeftControlReleased() 
-        {
-            player.transform.localScale = defaultScale;
-
-            moveSpeed = defaultMoveSpeed;
-            
             canProduceSound = true;
         }
 

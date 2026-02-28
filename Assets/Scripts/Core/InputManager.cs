@@ -5,11 +5,13 @@ namespace MetroUndergroundEcho.Core
 {
     public class InputManager : MonoBehaviour
     {
-        public static event Action OnSpacePressedSpace;
-        public static event Action OnSpacePressedLeftShift;
-        public static event Action OnSpacePressedLeftControl;
+        public static event Action OnPressedSpace;
+        public static event Action OnPressedLeftShift;
+        public static event Action OnPressedLeftControl;
+        public static event Action OnPressedZ;
         public static event Action OnLeftShiftReleased;
         public static event Action OnLeftControlReleased;
+        public static event Action OnZReleased;
 
         // Update is called once per frame
         void Update()
@@ -17,19 +19,19 @@ namespace MetroUndergroundEcho.Core
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("Praced space");
-                OnSpacePressedSpace?.Invoke();
+                OnPressedSpace?.Invoke();
             }
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 Debug.Log("Praced LeftShift");
-                OnSpacePressedLeftShift?.Invoke();
+                OnPressedLeftShift?.Invoke();
             }
 
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 Debug.Log("Praced LeftControl");
-                OnSpacePressedLeftControl?.Invoke();
+                OnPressedLeftControl?.Invoke();
             }
 
             if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -40,6 +42,17 @@ namespace MetroUndergroundEcho.Core
             if (Input.GetKeyUp(KeyCode.LeftControl))
             {
                 OnLeftControlReleased?.Invoke();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Z)) 
+            {
+                Debug.Log("Praced Z");
+                OnPressedZ?.Invoke();
+            }
+
+            if (Input.GetKeyUp(KeyCode.Z)) 
+            {
+                OnZReleased?.Invoke();
             }
         }
     }
