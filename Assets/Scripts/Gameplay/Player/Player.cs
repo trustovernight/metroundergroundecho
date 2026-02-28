@@ -4,30 +4,39 @@ using UnityEngine;
 
 namespace MetroUndergroundEcho.Gameplay
 {
+    [RequireComponent(typeof(PlayerAudio))]
     public class Player : MonoBehaviour, ISoundProducer
     {
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float jumpForce = 5f;
         [SerializeField] private float mouseSensitivity = 2f;
+        [SerializeField] [Min(0f)] private float stepVolume = 6f;
+        [SerializeField] [Min(0f)] private float landingVolume = 10f;
 
-        public Transform cameraTransform;
-        public GameObject player;
-
+        private PlayerAudio playerAudio;
         private Rigidbody rb;
         private float xRotation = 0f;
         private bool isGrounded;
         private float defaultMoveSpeed;
         private Vector3 defaultScale;
+        private bool canProduceSound = true;
+        private bool isInAir = false;
 
-        void Start()
+        public Transform cameraTransform;
+        public GameObject player;
+
+
+        private void Start()
         {
             rb = player.GetComponent<Rigidbody>();
             Cursor.lockState = CursorLockMode.Locked;
             defaultMoveSpeed = moveSpeed;
             defaultScale = player.transform.localScale;
+
+            playerAudio = GetComponent<PlayerAudio>();
         }
 
-        void Update()
+        private void Update()
         {
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * 100f * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * 100f * Time.deltaTime;
@@ -39,7 +48,7 @@ namespace MetroUndergroundEcho.Gameplay
             transform.Rotate(Vector3.up * mouseX);
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             float moveX = Input.GetAxis("Horizontal");
             float moveZ = Input.GetAxis("Vertical");
@@ -47,16 +56,30 @@ namespace MetroUndergroundEcho.Gameplay
             Vector3 move = transform.right * moveX + transform.forward * moveZ;
             Vector3 velocity = new Vector3(move.x * moveSpeed, rb.linearVelocity.y, move.z * moveSpeed);
             rb.linearVelocity = velocity;
+
+            if (canProduceSound && moveX != 0 || moveZ != 0)
+            {
+                ProduceSound();
+                playerAudio.PlayFootstep();
+            }
         }
 
-        void OnCollisionStay(Collision collision)
+        private void OnCollisionStay(Collision collision)
         {
+            if(!isInAir)
+            {
+                isInAir = false;
+                ProduceLandingSound();
+                playerAudio.PlayLanding();
+            }
+
             isGrounded = true;
         }
 
-        void OnCollisionExit(Collision collision)
+        private void OnCollisionExit(Collision collision)
         {
             isGrounded = false;
+            isInAir = true;
         }
 
         private void OnEnable()
@@ -67,14 +90,14 @@ namespace MetroUndergroundEcho.Gameplay
         {
         }
         
-        void ReactToSpace()
+        private void ReactToSpace()
         {
             if(isGrounded){
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }
 
-        void ReactToLeftShift()
+        private void ReactToLeftShift()
         {
             if(isGrounded){
                 Vector3 scale = defaultScale;
@@ -82,10 +105,11 @@ namespace MetroUndergroundEcho.Gameplay
                 player.transform.localScale = scale;
 
                 moveSpeed = defaultMoveSpeed / 2f;
+                canProduceSound = false;
             }
         }
 
-        void ReactToLeftControl()
+        private void ReactToLeftControl()
         {
             if(isGrounded){
                 Vector3 scale = defaultScale;
@@ -93,26 +117,41 @@ namespace MetroUndergroundEcho.Gameplay
                 player.transform.localScale = scale;
 
                 moveSpeed = defaultMoveSpeed / 3f;
+                canProduceSound = false;
             }
         }
 
-        void ReactToLeftShiftReleased() 
+        private void ReactToLeftShiftReleased() 
         {
             player.transform.localScale = defaultScale;
 
             moveSpeed = defaultMoveSpeed;
+
+            canProduceSound = true;
         }
 
-        void ReactToLeftControlReleased() 
+        private void ReactToLeftControlReleased() 
         {
             player.transform.localScale = defaultScale;
 
             moveSpeed = defaultMoveSpeed;
+            
+            canProduceSound = true;
         }
 
-        public SoundProducedEvent Produce()
+        public void ProduceSound()
         {
-            return new SoundProducedEvent(transform.position, 1f);
+            ProduceSound(stepVolume);
+        }
+
+        private void ProduceSound(float volume)
+        {
+            SoundManager.OnSoundProduced(new SoundProducedEvent(transform.position, volume));
+        }
+
+        private void ProduceLandingSound()
+        {
+            ProduceSound(landingVolume);
         }
     }
 }
