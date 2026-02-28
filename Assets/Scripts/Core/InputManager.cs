@@ -12,6 +12,7 @@ namespace MetroUndergroundEcho.Core
         public static event Action OnLeftShiftReleased;
         public static event Action OnLeftControlReleased;
         public static event Action OnZReleased;
+        public static event Action OnSpaceReleased;
 
         // Update is called once per frame
         void Update()
@@ -53,6 +54,11 @@ namespace MetroUndergroundEcho.Core
             if (Input.GetKeyUp(KeyCode.Z)) 
             {
                 OnZReleased?.Invoke();
+            }
+
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                OnSpaceReleased?.Invoke();
             }
         }
     }

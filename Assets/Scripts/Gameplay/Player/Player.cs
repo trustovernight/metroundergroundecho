@@ -7,7 +7,8 @@ namespace MetroUndergroundEcho.Gameplay
     [RequireComponent(typeof(PlayerAudio))]
     public class Player : MonoBehaviour, ISoundProducer
     {
-        public bool IsRunning {get; private set;} = false;
+        public bool IsRunning {get; set;} = false;
+        public bool isInAir {get; set;} = false;
 
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float jumpForce = 5f;
@@ -22,7 +23,6 @@ namespace MetroUndergroundEcho.Gameplay
         private float defaultMoveSpeed;
         private Vector3 defaultScale;
         private bool canProduceSound = true;
-        private bool isInAir = false;
 
         public Transform cameraTransform;
         public GameObject player;
@@ -59,7 +59,7 @@ namespace MetroUndergroundEcho.Gameplay
             Vector3 velocity = new Vector3(move.x * moveSpeed, rb.linearVelocity.y, move.z * moveSpeed);
             rb.linearVelocity = velocity;
 
-            if (canProduceSound && moveX != 0 || moveZ != 0)
+            if (canProduceSound && (moveX != 0 || moveZ != 0))
             {
                 ProduceSound();
                 playerAudio.PlayFootstep();
@@ -106,13 +106,20 @@ namespace MetroUndergroundEcho.Gameplay
             InputManager.OnLeftShiftReleased -= ReactToLeftShiftReleased;
             InputManager.OnLeftControlReleased -= ReactToLeftControlReleased;
             InputManager.OnZReleased -= ReactToZReleased;
+            InputManager.OnSpaceReleased -= ReactToSpaceReleased;
         }
         
         private void ReactToSpace()
         {
             if(isGrounded){
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isInAir = true;
             }
+        }
+
+        private void ReactToSpaceReleased()
+        {
+            // isInAir = false;
         }
 
         private void ReactToLeftShift()
@@ -139,6 +146,7 @@ namespace MetroUndergroundEcho.Gameplay
         private void ReactToLeftShiftReleased() 
         {
             moveSpeed = defaultMoveSpeed;
+            IsRunning = false;
         }
 
         private void ReactToLeftControlReleased() 

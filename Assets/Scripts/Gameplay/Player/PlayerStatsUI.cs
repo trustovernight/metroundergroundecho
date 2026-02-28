@@ -20,13 +20,14 @@ public class SliderBar : MonoBehaviour
     public Color emptyColor = Color.white;
     
     public float StaminaDelay = 0.5f;
-    private float StaminaTime = 0f;
+    private float StaminaTimeRuning = 0f;
 
-    public Player player;
+    private Player player;
 
     void Start()
     {
-        
+        player = GameObject.Find("Player").GetComponent<Player>();
+
         healthSlider.maxValue = maxHealth;
         hungerSlider.maxValue = maxHunger;
         staminaSlider.maxValue = maxStamina;
@@ -38,22 +39,22 @@ public class SliderBar : MonoBehaviour
         StartCoroutine(WaitUpdate());
     }
 
-    private void FixedUpdate() {
-        if (player.IsRunning == true) 
+    private void Update() {
+        if (player.IsRunning)
         {
-            Debug.Log($"{stamina} stamina");
-            ModifyHunger(-5f);
+            StaminaTimeRuning += Time.deltaTime;
 
-            while (player.IsRunning)
+            if (StaminaTimeRuning >= StaminaDelay)
             {
-                StaminaTime += Time.deltaTime;
-                if (StaminaTime >= StaminaDelay) 
-                {
-                    ModifyStamina(-5f);
-                    StaminaTime = 0;
-                    Debug.Log($"{stamina} stamina");
-                }
+                ModifyStamina(-5f);
+                StaminaTimeRuning = 0f;
             }
+        }
+
+        if (player.isInAir)
+        {
+            ModifyStamina(-30f);
+            player.isInAir = false;
         }
     }
 
