@@ -1,83 +1,84 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using MetroUndergroundEcho.Gameplay;
 
-public class SliderBar : MonoBehaviour
+namespace MetroUndergroundEcho.Gameplay 
 {
-    public Slider healthSlider;
-    public Slider hungerSlider;
-    public Slider staminaSlider;
-
-    public float maxHealth = 100f;
-    public float maxHunger = 100f;
-    public float maxStamina = 100f;
-
-    [HideInInspector] private float health = 100f;
-    [HideInInspector] private float hunger = 100f;
-    [HideInInspector] private float stamina = 100f;
-
-    public Color emptyColor = Color.white;
-    
-    public float StaminaDelay = 0.5f;
-    private float StaminaTimeRuning = 0f;
-
-    private Player player;
-
-    void Start()
+    public class SliderBar : MonoBehaviour
     {
-        player = GameObject.Find("Player").GetComponent<Player>();
+        public Slider healthSlider;
+        public Slider hungerSlider;
+        public Slider staminaSlider;
 
-        healthSlider.maxValue = maxHealth;
-        hungerSlider.maxValue = maxHunger;
-        staminaSlider.maxValue = maxStamina;
+        public float maxHealth = 100f;
+        public float maxHunger = 100f;
+        public float maxStamina = 100f;
 
-        healthSlider.value = maxHealth;
-        hungerSlider.value = maxHunger;
-        staminaSlider.value = maxStamina;
+        [HideInInspector] public float health = 100f;
+        [HideInInspector] public float hunger = 100f;
+        [HideInInspector] public float stamina = 100f;
 
-        StartCoroutine(WaitUpdate());
-    }
+        public Color emptyColor = Color.white;
+        
+        public float StaminaDelay = 0.5f;
+        private float StaminaTimeRuning = 0f;
 
-    private void Update() {
-        if (player.IsRunning)
+        private Player player;
+
+        void Start()
         {
-            StaminaTimeRuning += Time.deltaTime;
+            player = GameObject.Find("Player").GetComponent<Player>();
 
-            if (StaminaTimeRuning >= StaminaDelay)
+            healthSlider.maxValue = maxHealth;
+            hungerSlider.maxValue = maxHunger;
+            staminaSlider.maxValue = maxStamina;
+
+            healthSlider.value = maxHealth;
+            hungerSlider.value = maxHunger;
+            staminaSlider.value = maxStamina;
+
+            StartCoroutine(WaitUpdate());
+        }
+
+        private void Update() {
+            if (player.IsRunning)
             {
-                ModifyStamina(-5f);
-                StaminaTimeRuning = 0f;
+                StaminaTimeRuning += Time.deltaTime;
+
+                if (StaminaTimeRuning >= StaminaDelay)
+                {
+                    ModifyStamina(-5f);
+                    StaminaTimeRuning = 0f;
+                }
+            }
+
+            if (player.isInAir)
+            {
+                ModifyStamina(-30f);
+                player.isInAir = false;
             }
         }
 
-        if (player.isInAir)
+        IEnumerator WaitUpdate()
         {
-            ModifyStamina(-30f);
-            player.isInAir = false;
+            while(true)
+            {
+                yield return new WaitForSeconds(1f);
+                ModifyHunger(-0.5f);
+                Debug.Log($"{hunger} hunger");
+            }
         }
-    }
 
-    IEnumerator WaitUpdate()
-    {
-        while(true)
+        public void ModifyHunger(float amount) 
         {
-            yield return new WaitForSeconds(1f);
-            ModifyHunger(-0.5f);
-            Debug.Log($"{hunger} hunger");
+            hunger = Mathf.Clamp(hunger + amount, 0, maxHunger); 
+            hungerSlider.value = hunger;
         }
-    }
 
-    public void ModifyHunger(float amount) 
-    {
-        hunger = Mathf.Clamp(hunger + amount, 0, maxHunger); 
-        hungerSlider.value = hunger;
-    }
-
-    public void ModifyStamina(float amount)
-    {
-        stamina = Mathf.Clamp(stamina + amount, 0, maxStamina); 
-        staminaSlider.value = stamina;
+        public void ModifyStamina(float amount)
+        {
+            stamina = Mathf.Clamp(stamina + amount, 0, maxStamina); 
+            staminaSlider.value = stamina;
+        }
     }
 }
-    

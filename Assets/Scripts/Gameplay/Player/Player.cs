@@ -1,10 +1,12 @@
 using MetroUndergroundEcho.Core;
 using MetroUndergroundEcho.Core.Sound;
 using UnityEngine;
+using MetroUndergroundEcho.Gameplay;
 
 namespace MetroUndergroundEcho.Gameplay
 {
     [RequireComponent(typeof(PlayerAudio))]
+
     public class Player : MonoBehaviour, ISoundProducer
     {
         public bool IsRunning {get; set;} = false;
@@ -27,10 +29,13 @@ namespace MetroUndergroundEcho.Gameplay
         public Transform cameraTransform;
         public GameObject player;
 
+        private SliderBar playerStats;
+
 
         private void Start()
         {
             rb = player.GetComponent<Rigidbody>();
+            playerStats = GetComponent<SliderBar>();
             Cursor.lockState = CursorLockMode.Locked;
             defaultMoveSpeed = moveSpeed;
             defaultScale = player.transform.localScale;
@@ -124,7 +129,7 @@ namespace MetroUndergroundEcho.Gameplay
 
         private void ReactToLeftShift()
         {
-            if(isGrounded){
+            if(isGrounded && playerStats.stamina > 0){
                 moveSpeed = defaultMoveSpeed * 2;
                 canProduceSound = true;
                 IsRunning = true;
