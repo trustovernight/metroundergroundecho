@@ -1,10 +1,10 @@
-using UnityEngine;
+using MetroUndergroundEcho.Core.Sound;
 
 namespace MetroUndergroundEcho.Core
 {
     public interface ISoundProducer
     {
         // Returns the world coordinate where the sound was produced
-        Vector3 Produce();
+        SoundProducedEvent Produce();
     }
 }

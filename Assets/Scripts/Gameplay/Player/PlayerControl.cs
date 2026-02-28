@@ -62,6 +62,7 @@ public class PlayerControl : MonoBehaviour
     private void OnDisable()
     {
     }
+    
     void ReactToSpace()
     {
         if(isGrounded){
