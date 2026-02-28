@@ -25,7 +25,6 @@ namespace MetroUndergroundEcho.Gameplay
         public Transform cameraTransform;
         public GameObject player;
 
-
         private void Start()
         {
             rb = player.GetComponent<Rigidbody>();
