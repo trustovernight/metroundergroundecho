@@ -20,8 +20,9 @@ namespace MetroUndergroundEcho.Gameplay
 
         public Color emptyColor = Color.white;
         
-        public float StaminaDelay = 0.5f;
+        public float Delay = 0.5f;
         private float StaminaTimeRuning = 0f;
+        private float HungerTime = 0f;
 
         private Player player;
 
@@ -45,7 +46,7 @@ namespace MetroUndergroundEcho.Gameplay
             {
                 StaminaTimeRuning += Time.deltaTime;
 
-                if (StaminaTimeRuning >= StaminaDelay)
+                if (StaminaTimeRuning >= Delay)
                 {
                     ModifyStamina(-5f);
                     StaminaTimeRuning = 0f;
@@ -54,8 +55,32 @@ namespace MetroUndergroundEcho.Gameplay
 
             if (player.isInAir)
             {
-                ModifyStamina(-30f);
+                ModifyStamina(-20f);
                 player.isInAir = false;
+            }
+
+            if (hunger <= 0f) 
+            {
+                stamina = 0f;
+                HungerTime += Time.deltaTime;
+
+                if (HungerTime >= Delay)
+                {
+                    ModifyHealth(-5f);
+                    HungerTime = 0f;
+                }
+            }
+        }
+
+        private void FixedUpdate() {
+            if (hunger > 20f)
+            {
+                if (stamina < 100f)
+                {
+                    ModifyStamina(0.1f);
+                    ModifyHunger(-0.05f);
+                    Debug.Log($"{stamina} stamina");
+                }
             }
         }
 
@@ -79,6 +104,12 @@ namespace MetroUndergroundEcho.Gameplay
         {
             stamina = Mathf.Clamp(stamina + amount, 0, maxStamina); 
             staminaSlider.value = stamina;
+        }
+
+        public void ModifyHealth(float amount)
+        {
+            health = Mathf.Clamp(health + amount, 0, maxStamina); 
+            healthSlider.value = health;
         }
     }
 }

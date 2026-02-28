@@ -116,7 +116,7 @@ namespace MetroUndergroundEcho.Gameplay
         
         private void ReactToSpace()
         {
-            if(isGrounded){
+            if(isGrounded && playerStats.stamina > 0){
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 isInAir = true;
             }
