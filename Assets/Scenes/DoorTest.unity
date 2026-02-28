@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 266964293}
   - component: {fileID: 266964292}
   - component: {fileID: 266964291}
-  - component: {fileID: 266964295}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -225,30 +224,63 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266964290}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.36563, y: 0.5, z: 3.76706}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0076299906, y: 0.437, z: 0.26205993}
   m_LocalScale: {x: 0.02, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 600193257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &266964295
+--- !u!1 &600193255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 600193257}
+  - component: {fileID: 600193256}
+  m_Layer: 0
+  m_Name: DoorHinge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &600193256
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 266964290}
+  m_GameObject: {fileID: 600193255}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e486fde6519c3ddc984de6e146e958c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorController
   door: {fileID: 266964290}
-  openRot: 0
+  openRot: 90
   closeRot: 0
-  speed: 0
-  opening: 1
+  speed: 90
+  opening: 0
+--- !u!4 &600193257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600193255}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.358, y: 0.063, z: 3.505}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 266964294}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1224772785
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,4 +665,4 @@ SceneRoots:
   - {fileID: 1654362820}
   - {fileID: 1224772787}
   - {fileID: 1803163216}
-  - {fileID: 266964294}
+  - {fileID: 600193257}

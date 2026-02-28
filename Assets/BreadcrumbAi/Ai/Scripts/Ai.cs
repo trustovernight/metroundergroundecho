@@ -257,8 +257,9 @@ namespace BreadcrumbAi{
 		}
 		
 		private void Ai_Flee(){
-		if(ignoreMovement)
-			return;
+			if(ignoreMovement)
+				return;
+			GetComponent<Rigidbody>().MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(transform.position - Player.position), rotationSpeed));
 			if(Ai_EdgeAvoidance()){
 				GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + transform.forward * Time.deltaTime * followSpeed);
 			}

@@ -48,6 +48,8 @@ namespace MetroUndergroundEcho.Gameplay
         /// </summary>
         private void RespondToSound(Vector3 soundPosition)
         {
+            Debug.Log($"[Monster] Responding to sound at {soundPosition}, ignoreMovement set to true");
+            
             // disable ai movement so we can manually control the rigidbody
             if (ai != null)
             {
@@ -154,7 +156,10 @@ namespace MetroUndergroundEcho.Gameplay
 
             // restore AI movement and clear coroutine
             if (ai != null)
+            {
                 ai.ignoreMovement = false;
+                Debug.Log("[Monster] Sound sequence complete, ignoreMovement set back to false");
+            }
 
             soundResponseCoroutine = null;
         }
