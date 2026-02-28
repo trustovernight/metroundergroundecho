@@ -1,12 +1,17 @@
 using MetroUndergroundEcho.Core;
 using MetroUndergroundEcho.Core.Sound;
 using UnityEngine;
+using MetroUndergroundEcho.Gameplay;
 
 namespace MetroUndergroundEcho.Gameplay
 {
     [RequireComponent(typeof(PlayerAudio))]
+
     public class Player : MonoBehaviour, ISoundProducer
     {
+        public bool IsRunning {get; set;} = false;
+        public bool isInAir {get; set;} = false;
+
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private float jumpForce = 5f;
         [SerializeField] private float mouseSensitivity = 2f;
@@ -20,14 +25,16 @@ namespace MetroUndergroundEcho.Gameplay
         private float defaultMoveSpeed;
         private Vector3 defaultScale;
         private bool canProduceSound = true;
-        private bool isInAir = false;
 
         public Transform cameraTransform;
         public GameObject player;
 
+        private SliderBar playerState;
+        
         private void Start()
         {
             rb = player.GetComponent<Rigidbody>();
+            playerStats = GetComponent<SliderBar>();
             Cursor.lockState = CursorLockMode.Locked;
             defaultMoveSpeed = moveSpeed;
             defaultScale = player.transform.localScale;
@@ -56,7 +63,7 @@ namespace MetroUndergroundEcho.Gameplay
             Vector3 velocity = new Vector3(move.x * moveSpeed, rb.linearVelocity.y, move.z * moveSpeed);
             rb.linearVelocity = velocity;
 
-            if (canProduceSound && moveX != 0 || moveZ != 0)
+            if (canProduceSound && (moveX != 0 || moveZ != 0))
             {
                 ProduceSound();
                 playerAudio.PlayFootstep();
@@ -81,22 +88,54 @@ namespace MetroUndergroundEcho.Gameplay
             isInAir = true;
         }
 
-        private void OnEnable()
+        private void OnEnable() 
         {
-        }
+            InputManager.OnPressedSpace += ReactToSpace;
+            InputManager.OnPressedLeftShift += ReactToLeftShift;
+            InputManager.OnPressedLeftControl += ReactToLeftControl;
+            InputManager.OnPressedZ += ReactToZ;
 
-        private void OnDisable()
+            InputManager.OnLeftShiftReleased += ReactToLeftShiftReleased;
+            InputManager.OnLeftControlReleased += ReactToLeftControlReleased;
+            InputManager.OnZReleased += ReactToZReleased;
+        }
+            
+        private void OnDisable() 
         {
+            InputManager.OnPressedSpace -= ReactToSpace;
+            InputManager.OnPressedLeftShift -= ReactToLeftShift;
+            InputManager.OnPressedLeftControl -= ReactToLeftControl; 
+            InputManager.OnPressedZ -= ReactToZ;
+
+            InputManager.OnLeftShiftReleased -= ReactToLeftShiftReleased;
+            InputManager.OnLeftControlReleased -= ReactToLeftControlReleased;
+            InputManager.OnZReleased -= ReactToZReleased;
+            InputManager.OnSpaceReleased -= ReactToSpaceReleased;
         }
         
         private void ReactToSpace()
         {
-            if(isGrounded){
+            if(isGrounded && playerStats.stamina > 0){
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isInAir = true;
             }
         }
 
+        private void ReactToSpaceReleased()
+        {
+            // isInAir = false;
+        }
+
         private void ReactToLeftShift()
+        {
+            if(isGrounded && playerStats.stamina > 0){
+                moveSpeed = defaultMoveSpeed * 2;
+                canProduceSound = true;
+                IsRunning = true;
+            }
+        }
+
+        private void ReactToLeftControl()
         {
             if(isGrounded){
                 Vector3 scale = defaultScale;
@@ -108,7 +147,22 @@ namespace MetroUndergroundEcho.Gameplay
             }
         }
 
-        private void ReactToLeftControl()
+        private void ReactToLeftShiftReleased() 
+        {
+            moveSpeed = defaultMoveSpeed;
+            IsRunning = false;
+        }
+
+        private void ReactToLeftControlReleased() 
+        {
+            player.transform.localScale = defaultScale;
+
+            moveSpeed = defaultMoveSpeed;
+            
+            canProduceSound = true;
+        }
+
+        private void ReactToZ()
         {
             if(isGrounded){
                 Vector3 scale = defaultScale;
@@ -120,21 +174,12 @@ namespace MetroUndergroundEcho.Gameplay
             }
         }
 
-        private void ReactToLeftShiftReleased() 
+        private void ReactToZReleased() 
         {
             player.transform.localScale = defaultScale;
 
             moveSpeed = defaultMoveSpeed;
 
-            canProduceSound = true;
-        }
-
-        private void ReactToLeftControlReleased() 
-        {
-            player.transform.localScale = defaultScale;
-
-            moveSpeed = defaultMoveSpeed;
-            
             canProduceSound = true;
         }
 
