@@ -38,6 +38,6 @@ public class PlayerAudio : MonoBehaviour
         if (landingClips.Length == 0) return;
 
         AudioClip clip = landingClips[Random.Range(0, landingClips.Length)];
-        landingSource.PlayOneShot(clip, landingVolume);
+        landingSource.PlayOneShot(landingClips[0], 1f);
     }
 }
