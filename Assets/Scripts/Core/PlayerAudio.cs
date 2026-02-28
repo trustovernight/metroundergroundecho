@@ -4,11 +4,9 @@ public class PlayerAudio : MonoBehaviour
 {
     [Header("Footstep Settings")]
     public AudioClip[] footstepClips;   // Assign footstep sounds
-    [Range(0f, 1f)] public float footstepVolume = 0.5f;
 
     [Header("Landing Settings")]
     public AudioClip[] landingClips;    // Assign landing sounds
-    [Range(0f, 1f)] public float landingVolume = 1f;
 
     private AudioSource footstepSource;
     private AudioSource landingSource;
@@ -21,10 +19,8 @@ public class PlayerAudio : MonoBehaviour
 
         // Optional settings
         footstepSource.loop = false;
-        footstepSource.volume = footstepVolume;
 
         landingSource.loop = false;
-        landingSource.volume = landingVolume;
     }
 
     // Call this whenever the player steps
@@ -33,7 +29,7 @@ public class PlayerAudio : MonoBehaviour
         if (footstepClips.Length == 0) return;
 
         AudioClip clip = footstepClips[Random.Range(0, footstepClips.Length)];
-        footstepSource.PlayOneShot(clip, footstepVolume);
+        footstepSource.PlayOneShot(clip, 1f);
     }
 
     // Call this whenever the player lands
