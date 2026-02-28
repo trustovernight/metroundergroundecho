@@ -29,9 +29,8 @@ namespace MetroUndergroundEcho.Gameplay
         public Transform cameraTransform;
         public GameObject player;
 
-        private SliderBar playerStats;
-
-
+        private SliderBar playerState;
+        
         private void Start()
         {
             rb = player.GetComponent<Rigidbody>();

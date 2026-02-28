@@ -6,6 +6,10 @@ namespace BreadcrumbAi{
 	[System.Serializable]
 	public class Ai : MonoBehaviour {
 		
+		// when true external controllers (like Monster) should take over
+		[HideInInspector]
+		public bool ignoreMovement = false;
+		
 		#region Editor Variables
 		// *****EDITOR VARIABLES***** //
 		public bool _CanFollowPlayer, _CanFollowBreadcrumbs, _CanFollowAi, _CanWander, _CanPatrol,
@@ -220,6 +224,8 @@ namespace BreadcrumbAi{
 
 		// Move the rigidbody forward based on the speed value 
 		private void Ai_Movement(Vector3 position, float speed){
+			if(ignoreMovement)
+				return;
 			if(_CanJump && CanJump()){
 				if(moveState == MOVEMENT_STATE.IsFollowingPlayer || 
 					moveState == MOVEMENT_STATE.IsFollowingAi ||
@@ -251,6 +257,8 @@ namespace BreadcrumbAi{
 		}
 		
 		private void Ai_Flee(){
+			if(ignoreMovement)
+				return;
 			GetComponent<Rigidbody>().MoveRotation(Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(transform.position - Player.position), rotationSpeed));
 			if(Ai_EdgeAvoidance()){
 				GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + transform.forward * Time.deltaTime * followSpeed);
@@ -276,7 +284,9 @@ namespace BreadcrumbAi{
 
 		// This wander function selects a random location around the Ai and moves towards it.
 		// This will be update in the future to allow specific wander radius rather than "anywhere"		
-		private void Ai_Wander(){
+		private void Ai_Wander(){			
+			if(ignoreMovement)
+				return;
 			wanderTimer += Time.deltaTime;
 			if(wanderTimer >= wanderTimeLimit){
 				_IsWandering = false;
