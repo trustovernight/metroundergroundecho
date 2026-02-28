@@ -82,12 +82,24 @@ namespace MetroUndergroundEcho.Gameplay
             isInAir = true;
         }
 
-        private void OnEnable()
+        private void OnEnable() 
         {
-        }
+            InputManager.OnSpacePressedSpace += ReactToSpace;
+            InputManager.OnSpacePressedLeftShift += ReactToLeftShift;
+            InputManager.OnSpacePressedLeftControl += ReactToLeftControl;
 
-        private void OnDisable()
+            InputManager.OnLeftShiftReleased += ReactToLeftShiftReleased;
+            InputManager.OnLeftControlReleased += ReactToLeftControlReleased;
+        }
+            
+        private void OnDisable() 
         {
+            InputManager.OnSpacePressedSpace -= ReactToSpace;
+            InputManager.OnSpacePressedLeftShift -= ReactToLeftShift;
+            InputManager.OnSpacePressedLeftControl -= ReactToLeftControl; 
+
+            InputManager.OnLeftShiftReleased -= ReactToLeftShiftReleased;
+            InputManager.OnLeftControlReleased -= ReactToLeftControlReleased;
         }
         
         private void ReactToSpace()

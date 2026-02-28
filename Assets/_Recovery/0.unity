@@ -266,7 +266,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 99.81964, y: 42.311356}
+  m_AnchoredPosition: {x: 100, y: 70}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &248569253
@@ -910,7 +910,7 @@ GameObject:
   - component: {fileID: 1099103026}
   - component: {fileID: 1099103027}
   m_Layer: 5
-  m_Name: Slider (2)
+  m_Name: StaminaBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -935,7 +935,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 99.81964, y: 42.311356}
+  m_AnchoredPosition: {x: 100, y: 40}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1099103027
@@ -1171,7 +1171,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 99.81964, y: 42.311356}
+  m_AnchoredPosition: {x: 100, y: 100}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1375616353
@@ -1238,6 +1238,9 @@ GameObject:
   - component: {fileID: 1587943412}
   - component: {fileID: 1587943411}
   - component: {fileID: 1587943410}
+  - component: {fileID: 1587943418}
+  - component: {fileID: 1587943417}
+  - component: {fileID: 1587943416}
   - component: {fileID: 1587943415}
   m_Layer: 0
   m_Name: Player
@@ -1376,9 +1379,63 @@ MonoBehaviour:
   m_GameObject: {fileID: 1587943408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87622896aa3aaa4ead99b8c32d831c5, type: 3}
+  m_Script: {fileID: 11500000, guid: f4182d91a706fb4f39fc407939963a26, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerControl
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAudio
+  footstepClips: []
+  landingClips: []
+--- !u!114 &1587943416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587943408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db1c9131819fcd4b836f3b3e52c430d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SliderBar
+  healthSlider: {fileID: 1375616353}
+  hungerSlider: {fileID: 248569253}
+  staminaSlider: {fileID: 1099103027}
+  maxHealth: 100
+  maxHunger: 100
+  maxStamina: 100
+  emptyColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1587943417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587943408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a402e752657f6a2658bffac07d9f9159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MetroUndergroundEcho.Gameplay.Player
+  moveSpeed: 5
+  jumpForce: 5
+  mouseSensitivity: 2
+  stepVolume: 6
+  landingVolume: 10
+  cameraTransform: {fileID: 512315688}
+  player: {fileID: 1587943408}
+--- !u!114 &1587943418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587943408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4182d91a706fb4f39fc407939963a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAudio
+  footstepClips: []
+  landingClips: []
 --- !u!1 &1649003374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1704,7 +1761,6 @@ GameObject:
   - component: {fileID: 2043329010}
   - component: {fileID: 2043329009}
   - component: {fileID: 2043329008}
-  - component: {fileID: 2043329007}
   m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
@@ -1712,27 +1768,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &2043329007
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2043329006}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &2043329008
 BoxCollider:
   m_ObjectHideFlags: 0

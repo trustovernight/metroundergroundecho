@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class SliderBar : MonoBehaviour
 {
@@ -23,15 +24,17 @@ public class SliderBar : MonoBehaviour
         hungerSlider.value = maxHunger;
         staminaSlider.value = maxStamina;
 
-        ModifyHunger(0f);
     }
 
     void FixedUpdate() 
     {
-        // if(hungerSlider.value == 0)
-        // {
-        //     hungerSlider.fillRect.GetComponent<Image>().color = emptyColor;
-        // }
+        StartCoroutine(WaitHungerUpdate());
+    }
+
+    IEnumerator WaitHungerUpdate()
+    {
+        yield return new WaitForSeconds(5f);
+        ModifyHunger(-5f);
     }
 
     public void ModifyHunger(float amount) { hungerSlider.value = amount; }
