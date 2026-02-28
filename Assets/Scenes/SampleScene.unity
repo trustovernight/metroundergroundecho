@@ -1238,6 +1238,8 @@ GameObject:
   - component: {fileID: 1587943412}
   - component: {fileID: 1587943411}
   - component: {fileID: 1587943410}
+  - component: {fileID: 1587943417}
+  - component: {fileID: 1587943416}
   - component: {fileID: 1587943415}
   m_Layer: 0
   m_Name: Player
@@ -1376,9 +1378,49 @@ MonoBehaviour:
   m_GameObject: {fileID: 1587943408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87622896aa3aaa4ead99b8c32d831c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 4db1c9131819fcd4b836f3b3e52c430d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerControl
+  m_EditorClassIdentifier: Assembly-CSharp::SliderBar
+  healthSlider: {fileID: 1375616353}
+  hungerSlider: {fileID: 248569253}
+  staminaSlider: {fileID: 1099103027}
+  maxHealth: 100
+  maxHunger: 100
+  maxStamina: 100
+  emptyColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1587943416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587943408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a402e752657f6a2658bffac07d9f9159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MetroUndergroundEcho.Gameplay.Player
+  moveSpeed: 5
+  jumpForce: 5
+  mouseSensitivity: 2
+  stepVolume: 6
+  landingVolume: 10
+  cameraTransform: {fileID: 512315688}
+  player: {fileID: 1587943408}
+--- !u!114 &1587943417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587943408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4182d91a706fb4f39fc407939963a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAudio
+  footstepClips: []
+  landingClips: []
 --- !u!1 &1649003374
 GameObject:
   m_ObjectHideFlags: 0
