@@ -12,10 +12,16 @@ public class SliderBar : MonoBehaviour
     public float maxHunger = 100f;
     public float maxStamina = 100f;
 
+    private float health = 100f;
+    private float hunger = 100f;
+    private float stamina = 100f;
+
     public Color emptyColor = Color.white;
 
     void Start()
     {
+        StartCoroutine(WaitHungerUpdate());
+
         healthSlider.maxValue = maxHealth;
         hungerSlider.maxValue = maxHunger;
         staminaSlider.maxValue = maxStamina;
@@ -26,16 +32,19 @@ public class SliderBar : MonoBehaviour
 
     }
 
-    void FixedUpdate() 
-    {
-        StartCoroutine(WaitHungerUpdate());
-    }
-
     IEnumerator WaitHungerUpdate()
     {
-        yield return new WaitForSeconds(5f);
-        ModifyHunger(-5f);
+        while(true)
+        {
+            yield return new WaitForSeconds(1f);
+            ModifyHunger(-0.5f);
+            Debug.Log(hunger);
+        }
     }
 
-    public void ModifyHunger(float amount) { hungerSlider.value = amount; }
+    public void ModifyHunger(float amount) 
+    {
+        hunger = Mathf.Clamp(hunger + amount, 0, maxHunger); 
+        hungerSlider.value = hunger;
+    }
 }
