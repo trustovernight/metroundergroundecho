@@ -1,7 +1,6 @@
 using UnityEngine;
-using MetroUndergroundEcho.Core;
 
-namespace MetroUndergroundEcho.Gameplay 
+namespace MetroUndergroundEcho.Core 
 {
     public class PauseManager : MonoBehaviour
     {

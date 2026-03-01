@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using MetroUndergroundEcho.Core;
 
 namespace MetroUndergroundEcho.Gameplay 
 {
@@ -92,9 +93,9 @@ namespace MetroUndergroundEcho.Gameplay
             {
                 if (!pauseManager.isPaused)
                 {
-                yield return new WaitForSeconds(1f);
-                ModifyHunger(-0.5f);
-                Debug.Log($"{hunger} hunger");
+                    yield return new WaitForSeconds(1f);
+                    ModifyHunger(-0.5f);
+                    Debug.Log($"{hunger} hunger");
                 }
             }
         }
