@@ -31,7 +31,7 @@ public class LocationTransitionHandler : MonoBehaviour
         if (_door == null)
             Debug.LogError("[LocationTransitionHandler] Door not found in scene!");
 
-        // InputManager.OnPressedE += OnValveInteract;
+        InputManager.OnPressedE += OnValveInteract;
     }
 
     private void OnTriggerEnter(Collider other)
