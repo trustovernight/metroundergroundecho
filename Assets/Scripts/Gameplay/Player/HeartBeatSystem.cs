@@ -1,3 +1,4 @@
+using MetroUndergroundEcho.Gameplay;
 using UnityEngine;
 
 public class HeartBeatSystem : MonoBehaviour
@@ -21,6 +22,9 @@ public class HeartBeatSystem : MonoBehaviour
 
             if (!heartAudio.isPlaying)
                 heartAudio.Play();
+
+            player.GetComponent<Player>().ProduceSound();
+            
         } else heartAudio.Stop();
     }
 }

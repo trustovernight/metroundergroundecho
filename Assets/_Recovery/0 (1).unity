@@ -1268,8 +1268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4182d91a706fb4f39fc407939963a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAudio
-  footstepSource: {fileID: 273473474}
-  landingSource: {fileID: 273473474}
+  footstepSource: {fileID: 0}
+  landingSource: {fileID: 0}
 --- !u!54 &273473471
 Rigidbody:
   m_ObjectHideFlags: 0
