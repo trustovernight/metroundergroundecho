@@ -1,5 +1,6 @@
 using UnityEngine;
 using MetroUndergroundEcho.Gameplay;
+using MetroUndergroundEcho.Core;
 
 public class PlayerDead : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class PlayerDead : MonoBehaviour
 
     private PlayerStats playerStats;
     private PauseManager pauseManager;
+
+    public bool isDead = false;
 
     private void Start() 
     {
@@ -19,19 +22,26 @@ public class PlayerDead : MonoBehaviour
     {   
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (playerStats.health <= 0){
-                Dead_();
-            } else{
-                playerStats.ModifyHealth(-50f);
+            if (playerStats.health >= 0){
+                playerStats.ModifyHealth(-51f);
                 playerStats.ModifyStamina(100f);
-            }
+                if (playerStats.health <= 0) {Dead();}
+            } 
+                
+            
         }
     }
 
-    private void Dead_()
+    private void Dead()
     {
+        isDead = true;
         mainCanvas.SetActive(false);
         youAreDeadCanvas.SetActive(true);
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        while(isDead){pauseManager.isPaused = false;}
     }
 }
 
