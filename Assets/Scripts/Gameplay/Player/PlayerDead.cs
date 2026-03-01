@@ -25,7 +25,10 @@ public class PlayerDead : MonoBehaviour
             if (playerStats.health >= 0){
                 playerStats.ModifyHealth(-51f);
                 playerStats.ModifyStamina(100f);
-                if (playerStats.health <= 0) {Dead();}
+                if (playerStats.health <= 0) 
+                {
+                    Dead();
+                }
             } 
                 
             
@@ -40,8 +43,7 @@ public class PlayerDead : MonoBehaviour
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
-        while(isDead){pauseManager.isPaused = false;}
+         pauseManager.isPaused = false;
     }
 }
 

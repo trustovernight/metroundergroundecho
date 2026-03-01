@@ -2291,9 +2291,9 @@ GameObject:
   - component: {fileID: 1587943410}
   - component: {fileID: 1587943419}
   - component: {fileID: 1587943418}
+  - component: {fileID: 1587943420}
   - component: {fileID: 1587943416}
   - component: {fileID: 1587943415}
-  - component: {fileID: 1587943420}
   - component: {fileID: 1587943423}
   m_Layer: 0
   m_Name: Player
@@ -2592,8 +2592,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4182d91a706fb4f39fc407939963a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAudio
-  footstepSource: {fileID: 0}
-  landingSource: {fileID: 0}
+  footstepSource: {fileID: 1587943419}
+  landingSource: {fileID: 1587943419}
 --- !u!114 &1587943423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2608,6 +2608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDead
   mainCanvas: {fileID: 940080729}
   youAreDeadCanvas: {fileID: 964088569}
+  isDead: 0
 --- !u!1 &1649003374
 GameObject:
   m_ObjectHideFlags: 0
