@@ -85,7 +85,6 @@ namespace MetroUndergroundEcho.Gameplay
         private void OnCollisionExit(Collision collision)
         {
             isGrounded = false;
-            isInAir = true;
         }
 
         private void OnEnable() 
