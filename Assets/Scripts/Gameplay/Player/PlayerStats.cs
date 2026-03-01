@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace MetroUndergroundEcho.Gameplay 
 {
-    public class SliderBar : MonoBehaviour
+    public class PlayerStats : MonoBehaviour
     {
         public Slider healthSlider;
         public Slider hungerSlider;
