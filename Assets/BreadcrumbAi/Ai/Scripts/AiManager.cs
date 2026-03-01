@@ -25,12 +25,12 @@ namespace BreadcrumbAi{
 				breadcrumbs = GameObject.FindGameObjectsWithTag(breadcrumbString);
 				waypoints = GameObject.FindGameObjectsWithTag(waypointString);
 				} catch(UnityException ex){
-					Debug.Log(ex.Message + "\n" +
-											" Please go to Edit > Project Settings > Tags and Layers\n" +
-											"Maximize the Tag section and add the proper Tags.\n" +
-					          				"Maximize the Layers section and add the proper Layers.\n" +
-											"You can find the right Tags and Layers in the ReadMe file\n" +
-											"Go to BreadcrumbAi > Ai > Documentation > ReadMe\n\n");
+					// Debug.Log(ex.Message + "\n" +
+					// 						" Please go to Edit > Project Settings > Tags and Layers\n" +
+					// 						"Maximize the Tag section and add the proper Tags.\n" +
+					//           				"Maximize the Layers section and add the proper Layers.\n" +
+					// 						"You can find the right Tags and Layers in the ReadMe file\n" +
+					// 						"Go to BreadcrumbAi > Ai > Documentation > ReadMe\n\n");
 				}
 				yield return new WaitForSeconds(0.2f);
 			}
