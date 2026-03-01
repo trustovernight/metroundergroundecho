@@ -20,4 +20,4 @@ Current version has:
 - Stamina + health
 - Monster with simple AI
 
-[![Участники](https://contrib.rocks/image?repo=trustovernight/metroudergroundeecho)](https://github.com/trustovenight/metrouundergroundecho/graphs/contributors)
+
