@@ -6,7 +6,7 @@ using MetroUndergroundEcho.Gameplay;
 namespace MetroUndergroundEcho.Gameplay
 {
     [RequireComponent(typeof(PlayerAudio))]
-
+    [RequireComponent(typeof(PlayerStats))]
     public class Player : MonoBehaviour, ISoundProducer
     {
         public bool IsRunning {get; set;} = false;
@@ -29,12 +29,12 @@ namespace MetroUndergroundEcho.Gameplay
         public Transform cameraTransform;
         public GameObject player;
 
-        private SliderBar playerStats;
+        private PlayerStats playerStats;
         
         private void Start()
         {
             rb = player.GetComponent<Rigidbody>();
-            playerStats = GetComponent<SliderBar>();
+            playerStats = GetComponent<PlayerStats>();
             Cursor.lockState = CursorLockMode.Locked;
             defaultMoveSpeed = moveSpeed;
             defaultScale = player.transform.localScale;
@@ -123,7 +123,7 @@ namespace MetroUndergroundEcho.Gameplay
 
         private void ReactToSpaceReleased()
         {
-            // isInAir = false;
+            
         }
 
         private void ReactToLeftShift()
