@@ -113,7 +113,7 @@ public class LocationTransitionHandler : MonoBehaviour
         }
 
         // Ensure final rotation is exact
-        _valve.transform.localEulerAngles = initialRotation + new Vector3(0, 0, 360f * valveSpinCount);
+        _valve.transform.localEulerAngles = initialRotation + new Vector3(0, 360f * valveSpinCount, 0);
         Debug.Log($"[LocationTransitionHandler] Valve completed {valveSpinCount} spins");
     }
 

@@ -1136,6 +1136,7 @@ GameObject:
   - component: {fileID: 273473473}
   - component: {fileID: 273473475}
   - component: {fileID: 273473474}
+  - component: {fileID: 273473476}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1444,11 +1445,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeartBeatSystem
   monster: {fileID: 1767884382}
-  heartAudio: {fileID: 0}
+  heartAudio: {fileID: 273473474}
   player: {fileID: 273473464}
   maxDistance: 7
   minPitch: 1.4
   maxPitch: 3
+--- !u!114 &273473476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273473464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5366f6c395280d468c46815a5173619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDead
+  mainCanvas: {fileID: 1727949486}
+  youAreDeadCanvas: {fileID: 1380485286}
+  isDead: 0
 --- !u!1001 &277382083
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9636,7 +9652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e15390de350ff7f0d9aaf73f777a634f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocationTransitionHandler
-  nextSceneName: Location 2
+  nextSceneName: Location 3
   valveSpinDuration: 2
   valveSpinCount: 4
   doorOpenDuration: 1.5
