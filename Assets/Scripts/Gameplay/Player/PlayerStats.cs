@@ -25,10 +25,12 @@ namespace MetroUndergroundEcho.Gameplay
         private float HungerTime = 0f;
 
         private Player player;
+        private PauseManager pauseManager;
 
         void Start()
         {
             player = GameObject.Find("Player").GetComponent<Player>();
+            pauseManager = GameObject.Find("PauseObject").GetComponent<PauseManager>();
 
             healthSlider.maxValue = maxHealth;
             hungerSlider.maxValue = maxHunger;
@@ -88,9 +90,12 @@ namespace MetroUndergroundEcho.Gameplay
         {
             while(true)
             {
+                if (!pauseManager.isPaused)
+                {
                 yield return new WaitForSeconds(1f);
                 ModifyHunger(-0.5f);
                 Debug.Log($"{hunger} hunger");
+                }
             }
         }
 
