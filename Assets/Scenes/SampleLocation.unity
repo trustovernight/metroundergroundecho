@@ -1019,6 +1019,7 @@ GameObject:
   - component: {fileID: 273473470}
   - component: {fileID: 273473469}
   - component: {fileID: 273473472}
+  - component: {fileID: 273473473}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1203,6 +1204,22 @@ MonoBehaviour:
   stamina: 100
   emptyColor: {r: 1, g: 1, b: 1, a: 1}
   Delay: 0.5
+--- !u!114 &273473473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273473464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 863972a6cf73ec44c89608b2ab82ae3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreadcrumbAi.Breadcrumbs
+  breadcrumbAmount: 0
+  breadRate: 0
+  breadCleanRate: 0
+  _hasUFPS: 0
 --- !u!1001 &277382083
 PrefabInstance:
   m_ObjectHideFlags: 0
