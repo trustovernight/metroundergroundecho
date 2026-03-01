@@ -13,6 +13,8 @@ namespace MetroUndergroundEcho.Core
         public static event Action OnLeftControlReleased;
         public static event Action OnZReleased;
         public static event Action OnSpaceReleased;
+        public static event Action OnPressedEscape;
+        // public static event Action OnEscapeReleased;
 
         // Update is called once per frame
         void Update()
@@ -60,6 +62,12 @@ namespace MetroUndergroundEcho.Core
             {
                 OnSpaceReleased?.Invoke();
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                OnPressedEscape?.Invoke();
+            }
+
         }
     }
 }
